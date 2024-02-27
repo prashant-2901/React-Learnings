@@ -4,6 +4,15 @@ function TicTacToe() {
 
     const [tableData, setTableData] =useState(Array.from({length: 9}, () => ""))
     const [player, setPlayer] =  useState("X")
+    const [showButton, setShowButton] = useState([])
+    const [dummyData, setDummyData] = useState(Array.from({length: 9}, () => ""))
+
+    const buttonClicked= (index) =>{
+        dummyData[index] = [...tableData]
+        console.log(showButton,"showbutton");
+        setDummyData(dummyData)
+        setTableData(dummyData[index])
+    }
 
     const tableDataFn=(index) =>{
         const newData = [...tableData]
@@ -14,6 +23,7 @@ function TicTacToe() {
         setPlayer("O")
         else if(player==="O")
         setPlayer("X")
+        setShowButton(prevButtons =>[...prevButtons, <button key={prevButtons.length} onClick={()=>buttonClicked(prevButtons.length)}>Move {prevButtons.length}</button>])
         }
         winnerFn(newData)
         drawFn(newData)
@@ -62,6 +72,9 @@ function TicTacToe() {
             </tr>
             </tbody>
         </table>
+        {showButton.map((index)=>(
+            <div key={index}>{index}</div>
+        ))}
     </div>
 
   )
